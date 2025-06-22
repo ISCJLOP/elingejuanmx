@@ -20,3 +20,5 @@ HTML5: Para la estructura y el contenido de la página.
 Tailwind CSS: Un framework CSS de primera utilidad para estilos rápidos y responsivos.
 
 SVG (Scalable Vector Graphics): Para los iconos de contacto y experiencia, asegurando escalabilidad sin pérdida de calidad.
+
+lIVE: https://github.com/ISCJLOP/elingejuanmx
