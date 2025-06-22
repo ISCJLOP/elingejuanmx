@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juan Luis Ordoñez Perez - Project Manager</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e0f2f7; /* Light gray background */
+        }
+        /* Section title styling with a subtle blue underline */
+        .section-title {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a202c; /* Darker text for readability */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #3182ce; /* A slightly deeper blue for accent */
+            border-radius: 9999px;
+        }
+        /* Bullet points for experience and certifications */
+        .experience-item, .certification-item {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .experience-item::before, .certification-item::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #3182ce; /* Blue bullet matching section title underline */
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        /* --- Header Structure Styling --- */
+        .main-card-wrapper {
+            border-radius: 0.75rem; /* Rounded corners */
+            overflow: hidden; /* Ensures banner and profile pic corners match card */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the card */
+            padding: 0; /* No padding on the main wrapper, managed by inner elements */
+        }
+
+        .banner-image {
+            width: 100%;
+            height: 10rem; /* Fixed height for mobile */
+            object-fit: cover; /* Cover the area, cropping if necessary */
+            display: block; /* Remove extra space below image */
+        }
+
+        .profile-pic-wrapper {
+            position: relative; /* Allows positioning children relative to itself */
+            z-index: 10; /* Ensures it's on top of the banner */
+            margin-top: -4rem; /* Half of profile pic height (8rem/2 = 4rem) to pull it up */
+            margin-bottom: -4rem; /* Compensate for the space taken by the pulled-up pic */
+        }
+
+        .profile-pic-container {
+            width: 8rem; /* 128px */
+            height: 8rem; /* 128px */
+            margin-left: auto;
+            margin-right: auto;
+            border: 4px solid white; /* White border for contrast */
+            border-radius: 9999px; /* Full rounded for circle */
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Stronger shadow for pop */
+            background-color: white; /* Fallback for transparency if image has alpha */
+        }
+
+        .header-content-area {
+            text-align: center;
+            padding: 6rem 1.5rem 1.5rem 1.5rem; /* Increased top padding to push text down significantly */
+            color: #1a202c; /* Default text color for this area */
+        }
+
+        /* Style for the simulated buttons */
+        .contact-button {
+            display: inline-flex; /* Use inline-flex to allow icons and text side-by-side */
+            align-items: center; /* Center items vertically */
+            gap: 0.5rem; /* Space between icon and text */
+            padding: 0.5rem 0.75rem; /* Padding for button feel */
+            border-radius: 0.5rem; /* Rounded corners */
+            background-color: #f3f4f6; /* Light background */
+            color: #4b5563; /* Darker text */
+            transition: all 0.2s ease-in-out; /* Smooth transition for hover */
+            text-decoration: none; /* Remove underline from links */
+        }
+        .contact-button:hover {
+            background-color: #e5e7eb; /* Slightly darker on hover */
+            color: #1f2937; /* Darker text on hover */
+        }
+        .contact-button svg {
+            color: #3b82f6; /* Icon color */
+        }
+
+        /* Style for experience card titles (no icons, just text) */
+        .experience-card-title {
+            text-align: center; /* Keep text centered */
+            display: block; /* Ensure it behaves as a block element */
+        }
+
+        @media (min-width: 768px) {
+            .banner-image {
+                height: 12rem; /* Slightly taller on desktop */
+            }
+            .profile-pic-wrapper {
+                margin-top: -6rem; /* Half of profile pic height if banner is taller (12rem/2 = 6rem) */
+                margin-bottom: -6rem;
+            }
+            .header-content-area {
+                padding-top: 7rem; /* Even more space on desktop for header text */
+            }
+        }
+        /* --- End Header Structure Styling --- */
+
+        /* Specific background colors for sections */
+        .section-profile {
+            background-color: #34a852; /* Green */
+        }
+        .section-profile p {
+            color: white; /* Text color for readability */
+        }
+
+        .section-education .card { /* Targeting inner cards specifically */
+            background-color: #4285f4; /* Blue */
+        }
+        .section-education .card h3, .section-education .card p {
+            color: white; /* Ensure text is readable */
+        }
+
+        .section-experience .card { /* Targeting inner cards specifically */
+            background-color: #fabd05; /* Yellow */
+        }
+        .section-experience .card h3, .section-experience .card p, .section-experience .experience-item {
+            color: #1a202c; /* Dark text for contrast on yellow */
+        }
+        .section-experience .experience-item::before {
+            color: #1a202c; /* Bullet color */
+        }
+
+        .section-skills-certs .card { /* Targeting inner cards specifically */
+            background-color: #4285f4; /* Blue */
+        }
+        .section-skills-certs .card h3,
+        .section-skills-certs .card p,
+        .section-skills-certs .experience-item,
+        .section-skills-certs .certification-item {
+            color: #1a202c !important; /* Force dark text for all content in cards */
+        }
+        .section-skills-certs .experience-item::before,
+        .section-skills-certs .certification-item::before {
+             color: #1a202c !important; /* Force dark bullet color */
+        }
+
+
+        /* Adjust border colors to match new background colors subtly */
+        .section-profile .border {
+            border-color: #2e8b4e; /* Darker green border */
+        }
+        .section-education .border {
+            border-color: #3a75e0; /* Darker blue border */
+        }
+        .section-experience .border {
+            border-color: #e3a904; /* Darker yellow border */
+        }
+        .section-skills-certs .border {
+            border-color: #3a75e0; /* Darker blue border */
+        }
+
+        /* Footer styling */
+        .footer {
+            background-color: #1a202c; /* Dark background for footer */
+            color: #d1d5db; /* Light gray text */
+            padding: 1.5rem 1rem; /* Reduced padding for more compact footer */
+            text-align: center;
+            border-radius: 0.75rem; /* Match main container radius */
+            margin-top: 2rem; /* Space above footer */
+        }
+
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl w-full bg-white shadow-2xl rounded-xl main-card-wrapper">
+
+            <!-- Banner Image -->
+            <img src="https://i.postimg.cc/59FntdP5/Banner-nuevo-para-Linked-In.png" alt="Juan Luis Ordoñez Perez Banner" class="banner-image">
+
+            <!-- Profile Picture (positioned relative to overlap banner) -->
+            <div class="profile-pic-wrapper">
+                <div class="profile-pic-container">
+                    <img src="https://media.licdn.com/dms/image/v2/D4E03AQGOe3N-fcjlTg/profile-displayphoto-scale_200_200/B4EZeVCcpWHgAc-/0/1750552139546?e=1756339200&v=beta&t=mDkde1acVImiPfzFbLmI73oIAW0b4r6LsCPlM9OG-z0" alt="Juan Luis Ordoñez Perez Profile Picture" class="w-full h-full object-cover">
+                </div>
+            </div>
+
+            <!-- Header Content Area (Name, Title, Contact Info - now below banner/pic) -->
+            <div class="header-content-area">
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">Juan Luis Ordoñez Perez</h1>
+                <p class="text-xl text-gray-600 mb-4">Project Manager | Digital Transformation | Tech Product Development</p>
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-4 font-medium text-sm sm:text-base">
+                    <!-- Location button -->
+                    <div class="contact-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M18.364 17.636A9 9 0 1 0 5.636 5.636a9 9 0 0 0 12.728 12.728zm0 0L22 22"/><path d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/></svg>
+                        <span>Tapachula, Chiapas, Mexico</span>
+                    </div>
+                    <!-- Phone button -->
+                    <a href="tel:+529622573486" class="contact-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>+52 9622573486</span>
+                    </a>
+                    <!-- Email button -->
+                    <a href="mailto:juanluis1231@outlook.com" class="contact-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        <span>juanluis1231@outlook.com</span>
+                    </a>
+                    <!-- LinkedIn button -->
+                    <a href="https://www.linkedin.com/in/iscjuan" target="_blank" class="contact-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                        <span>LinkedIn Profile</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Main content sections wrapper -->
+            <div class="p-8 space-y-8 md:space-y-12">
+                <!-- Professional Profile Section -->
+                <section class="mb-10">
+                    <h2 class="section-title">Professional Profile</h2>
+                    <p class="text-lg leading-relaxed rounded-lg p-4 section-profile border">
+                        I'm a Computer Systems Engineer and Project Manager who loves connecting technology with business. I specialize in digital transformation and launching successful digital products, even generating over 40 million pesos annually. I'm all about data-driven strategies, teamwork, and driving innovation to boost growth. I enjoy tackling new professional opportunities.
+                    </p>
+                </section>
+
+                <!-- Education Section -->
+                <section class="mb-10 section-education">
+                    <h2 class="section-title">Education</h2>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold">Bachelor of Engineering, Computer Systems Engineering</h3>
+                            <p class="text-gray-700">Instituto Universitario de México (IUDM)</p>
+                            <p class="text-gray-600 text-sm">2015-2018</p>
+                        </div>
+                        <div class="p-4 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold">High School Diploma</h3>
+                            <p class="text-gray-700">Colegio de bachilleres de Chiapas plantel 190</p>
+                            <p class="text-gray-600 text-sm">2015-2018</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Experience Section -->
+                <section class="mb-10 section-experience">
+                    <h2 class="section-title">Experience</h2>
+                    <div class="space-y-6">
+
+                        <!-- Konfront - Digital Deployment Team -->
+                        <div class="p-5 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold experience-card-title">
+                                <span>Project Manager - Digital Deployment Team</span>
+                            </h3>
+                            <p class="text-gray-700">Konfront</p>
+                            <p class="text-gray-600 text-sm">August 2024 - April 2025 (9 months)</p>
+                            <ul class="list-none mt-3 space-y-2">
+                                <li class="experience-item">Led the deployment and adoption process of developed digital tools, ensuring alignment with client needs.</li>
+                                <li class="experience-item">Managed the digital deployment process.</li>
+                                <li class="experience-item">Gathered insights and understood client requirements thoroughly (Understanding Client Needs - Etapa de Obtener).</li>
+                                <li class="experience-item">Prepared end-users for adopting the digital solution (Preparing for Adoption - Etapa de Preparar).</li>
+                                <li class="experience-item">Created and implemented digital solutions, tracking real-time progress (Developing Implementation - Etapa de Desarrollar Implementación).</li>
+                                <li class="experience-item">Continuously improved based on feedback and integrated changes (Iterating and Integrating - Etapa de Integración).</li>
+                                <li class="experience-item">Ensured usability, analyzed progress, and adjusted as needed.</li>
+                                <li class="experience-item">Fostered the adoption of new technologies among end-users, improving customer experience.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Konfront - Digital Transformation Analyst -->
+                        <div class="p-5 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold experience-card-title">
+                                <span>Project Manager - Digital Transformation Analyst</span>
+                            </h3>
+                            <p class="text-gray-700">Konfront</p>
+                            <p class="text-gray-600 text-sm">April 2023 - April 2025 (2 years 1 month)</p>
+                            <ul class="list-none mt-3 space-y-2">
+                                <li class="experience-item">Led the development of minimum viable products (MVP) from conception to launch, including platforms in sectors such as group travel, health, fintech, brokers, and vehicle multi-quotes.</li>
+                                <li class="experience-item">Developed platforms that generated over 40 million pesos annually, demonstrating high ROI and client satisfaction.</li>
+                                <li class="experience-item">Managed high-impact projects and developed close relationships with clients.</li>
+                                <li class="experience-item">Led multidisciplinary teams (Development, Interface Architecture) to meet projected timelines and client expectations in digital product development.</li>
+                                <li class="experience-item">Created digital solutions for various industries such as health tech, insurance, credit, travel, and finance.</li>
+                                <li class="experience-item">Utilized agile methodologies (SCRUM) to optimize team efficiency and meet established deadlines.</li>
+                                <li class="experience-item">Developed strong client relationships, ensuring project satisfaction and success through a user-centric approach.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Agencia digital Ordoñez - Jr Graphic Designer -->
+                        <div class="p-5 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold experience-card-title">
+                                <span>Jr Graphic Designer (Freelance)</span>
+                            </h3>
+                            <p class="text-gray-700">Agencia digital Ordoñez</p>
+                            <p class="text-gray-600 text-sm">January 2021 - December 2021 (1 year)</p>
+                            <ul class="list-none mt-3 space-y-2">
+                                <li class="experience-item">Created and designed advertising campaigns for various clients such as retail, supermarkets, agencies, and SMEs.</li>
+                                <li class="experience-item">Designed logos.</li>
+                                <li class="experience-item">Designed sales and marketing strategies from scratch for emerging companies.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Publicidad Tapachula IWOKA - Marketing and Sales Specialist -->
+                        <div class="p-5 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold experience-card-title">
+                                <span>Marketing and Sales Specialist</span>
+                            </h3>
+                            <p class="text-gray-700">Publicidad Tapachula IWOKA</p>
+                            <p class="text-gray-600 text-sm">March 2016 - March 2020 (4 years 1 month)</p>
+                            <ul class="list-none mt-3 space-y-2">
+                                <li class="experience-item">Developed and coordinated comprehensive digital marketing strategies, increasing client acquisition.</li>
+                                <li class="experience-item">Placed advertising services to a diverse client portfolio.</li>
+                                <li class="experience-item">Supervised effective on-site advertising campaigns, including flyering, loudspeaker announcements, and activations.</li>
+                                <li class="experience-item">Conducted competitor analysis based on data and random surveys with a sample of end-users.</li>
+                                <li class="experience-item">Grew client portfolio and closed new business deals.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Escuela primaria "Emilio Rabasa Estebanell" - Head of IT Services -->
+                        <div class="p-5 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold experience-card-title">
+                                <span>Head of IT Services</span>
+                            </h3>
+                            <p class="text-gray-700">Escuela primaria "Emilio Rabasa Estebanell"</p>
+                            <p class="text-gray-600 text-sm">September 2017 - March 2018 (7 months)</p>
+                            <ul class="list-none mt-3 space-y-2">
+                                <li class="experience-item">Led the IT team to enhance the school's technological infrastructure.</li>
+                                <li class="experience-item">Developed and implemented technology solutions to optimize educational processes.</li>
+                                <li class="experience-item">Ensured the security and efficiency of IT services for staff and students.</li>
+                                <li class="experience-item">Provided technical support and managed networks for two computer labs.</li>
+                                <li class="experience-item">Developed a web-based management system for tracking student practice sessions.</li>
+                                <li class="experience-item">Managed networks (Intranet).</li>
+                                <li class="experience-item">Taught Computer Science I & II.</li>
+                                <li class="experience-item">Prepared bi-monthly inventory reports of activities within the computer lab and its inventory.</li>
+                            </ul>
+                        </div>
+
+                        <!-- SOLUCION INFORMATICA EXPRES TAPACHULA - Technical Support (Freelance) -->
+                        <div class="p-5 rounded-lg shadow-sm border card">
+                            <h3 class="text-lg font-semibold experience-card-title">
+                                <span>Technical Support (Freelance)</span>
+                            </h3>
+                            <p class="text-gray-700">SOLUCION INFORMATICA EXPRES TAPACHULA</p>
+                            <p class="text-gray-600 text-sm">January 2015 - December 2019 (5 years)</p>
+                            <ul class="list-none mt-3 space-y-2">
+                                <li class="experience-item">Provided technical assistance and support for incoming queries and issues related to computer systems, software, and hardware.</li>
+                                <li class="experience-item">Planned, executed, and oversaw IT projects, ensuring they are completed on time, within scope, and within budget (IT Project Management).</li>
+                                <li class="experience-item">Designed and developed web applications, ensuring they are user-friendly, efficient, and meet client requirements (Web Application Design and Development).</li>
+                                <li class="experience-item">Created and maintained websites, focusing on both aesthetic design and functional performance (Website Design and Development).</li>
+                                <li class="experience-item">Implemented and managed Agile methodologies, particularly SCRUM, to improve project efficiency and team collaboration (Agile Methodologies).</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- Skills & Certifications Section -->
+                <section class="mb-10 section-skills-certs">
+                    <h2 class="section-title">Skills & Certifications</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">Project Management Focused Skills</h3>
+                            <ul class="list-none space-y-2">
+                                <li class="experience-item">Project Coordination</li>
+                                <li class="experience-item">Project Management</li>
+                                <li class="experience-item">Digital Transformation</li>
+                                <li class="experience-item">Product Owner</li>
+                                <li class="experience-item">Agile Methodologies (SCRUM)</li>
+                                <li class="experience-item">LEAN Method</li>
+                                <li class="experience-item">Business Analysis</li>
+                                <li class="experience-item">Technological Product Development</li>
+                                <li class="experience-item">Strategic Planning</li>
+                                <li class="experience-item">Team Leadership</li>
+                                <li class="experience-item">Stakeholder Management</li>
+                                <li class="experience-item">Risk Management</li>
+                                <li class="experience-item">Budget Management</li>
+                                <li class="experience-item">Quality Assurance</li>
+                                <li class="experience-item">Client Relationship Management</li>
+                                <li class="experience-item">Data-Driven Strategies</li>
+                                <li class="experience-item">Innovation Management</li>
+                                <li class="experience-item">Process Improvement</li>
+                                <li class="experience-item">Communication</li>
+                                <li class="experience-item">Time Management</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-4">Certifications</h3>
+                            <ul class="list-none space-y-2">
+                                <li class="certification-item">Natural Language Processing and Computer Vision (IBM; May 2025)</li>
+                                <li class="certification-item">ChatGPT (Universidad Tecmilenio; February 2025)</li>
+                                <li class="certification-item">Digital Accounting and Finance (Universidad Tecmilenio; February 2025)</li>
+                                <li class="certification-item">Productivity Tools in the Digital World: Word (Universidad Tecmilenio; February 2025)</li>
+                                <li class="certification-item">Automated Machine Learning and Deep Learning (IBM; May 2025)</li>
+                                <li class="certification-item">Introduction to Artificial Intelligence (IBM; May 2025)</li>
+                                <li class="certification-item">Object-Oriented Programming (Universidad Tecmilenio; February 2025)</li>
+                                <li class="certification-item">Computer Networks (Universidad Tecmilenio; February 2025)</li>
+                                <li class="certification-item">Big Data (Universidad Tecmilenio; January 2025)</li>
+                                <li class="certification-item">Cybersecurity (Universidad Tecmilenio; January 2025)</li>
+                                <li class="certification-item">Basic Aspects of Azure AI (IA-900) (Microsoft; September 2024)</li>
+                                <li class="certification-item">Artificial Intelligence (Universidad Tecmilenio; September 2024)</li>
+                                <li class="certification-item">"El MTTR: The key to optimizing your repair times and increasing productivity" (Fracttal; May 2023)</li>
+                                <li class="certification-item">Scrum Foundation Professional Certificate - SFPC™ (CertiProf; July 2022)</li>
+                                <li class="certification-item">Diploma in Financial Education (CONDUSEF; June 2022)</li>
+                                <li class="certification-item">From Engagement to Sales (Académica; February 2021)</li>
+                                <li class="certification-item">Introduction to Cybersecurity (Cisco Networking Academy; November 2020)</li>
+                                <li class="certification-item">Component-Based Web Design (Consejo Zacatecano de Ciencia, Tecnología e Innovación; May 2020)</li>
+                                <li class="certification-item">Preventive-Corrective Maintenance of Laptops (Secretaría del Trabajo y Previsión Social; November 2018)</li>
+                                <li class="certification-item">Cell Phone and Tablet Repair Technician (Fundación Carlos Slim; October 2018)</li>
+                                <li class="certification-item">E-commerce (Google Actívate)</li>
+                                <li class="certification-item">Digital Competencies for Professionals (Google Actívate)</li>
+                                <li class="certification-item">Introduction to Web Development Course: HTML and CSS (1/2) (Google Actívate)</li>
+                                <li class="certification-item">Personal Productivity in the Digital Era Course (Google Actívate)</li>
+                                <li class="certification-item">Incident Management and Response (ESET Latinoamérica)</li>
+                                <li class="certification-item">Introduction to Web Development I (Google Actívate)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Footer Section moved inside the main content card -->
+                <footer class="footer">
+                    <p>&copy; 2024 Juan Luis Ordoñez Perez. Todos los derechos reservados.</p>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
