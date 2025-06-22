@@ -50,6 +50,7 @@
 
         /* --- Header Structure Styling --- */
         .main-card-wrapper {
+            width: 100%; /* Ensures it takes full width of its container */
             border-radius: 0.75rem; /* Rounded corners */
             overflow: hidden; /* Ensures banner and profile pic corners match card */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the card */
@@ -192,12 +193,56 @@
             margin-top: 2rem; /* Space above footer */
         }
 
+        /* Language Switcher Styles - Now floating */
+        .lang-switcher-float {
+            position: fixed; /* Make it float */
+            top: 1rem; /* Distance from top */
+            right: 1rem; /* Distance from right */
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Stronger shadow for floating effect */
+            z-index: 100; /* Ensure it's on top of everything else */
+        }
+        .lang-button {
+            padding: 0.5rem 1rem; /* Slightly smaller padding for compact buttons */
+            font-weight: 600;
+            color: #4b5563;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            flex-grow: 1; /* Make buttons take equal width */
+            text-align: center;
+            font-size: 0.875rem; /* Smaller font size for compactness */
+        }
+        .lang-button.active {
+            background-color: #3b82f6; /* Blue active tab */
+            color: white;
+        }
+        .lang-button:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+
+        /* Language-specific content visibility */
+        .lang-content[data-lang="es"],
+        .lang-content[data-lang="en"] {
+            display: none; /* Hide all by default */
+        }
+        .lang-content.active {
+            display: block; /* Show active language content */
+        }
+
     </style>
 </head>
 <body class="antialiased text-gray-800">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl w-full bg-white shadow-2xl rounded-xl main-card-wrapper">
+    <!-- Language Switcher - NOW FLOATING -->
+    <div class="lang-switcher-float">
+        <button class="lang-button active" data-lang-target="en">EN</button>
+        <button class="lang-button" data-lang-target="es">ES</button>
+    </div>
 
+    <div class="min-h-screen flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-4xl bg-white shadow-2xl rounded-xl main-card-wrapper">
             <!-- Banner Image -->
             <img src="https://i.postimg.cc/59FntdP5/Banner-nuevo-para-Linked-In.png" alt="Juan Luis Ordoñez Perez Banner" class="banner-image">
 
@@ -237,212 +282,461 @@
             </div>
 
             <!-- Main content sections wrapper -->
+            <!-- All content will be duplicated inside lang-content divs -->
             <div class="p-8 space-y-8 md:space-y-12">
-                <!-- Professional Profile Section -->
-                <section class="mb-10">
-                    <h2 class="section-title">Professional Profile</h2>
-                    <p class="text-lg leading-relaxed rounded-lg p-4 section-profile border">
-                        I'm a Computer Systems Engineer and Project Manager who loves connecting technology with business. I specialize in digital transformation and launching successful digital products, even generating over 40 million pesos annually. I'm all about data-driven strategies, teamwork, and driving innovation to boost growth. I enjoy tackling new professional opportunities.
-                    </p>
-                </section>
+                <!-- English Content -->
+                <div class="lang-content active" data-lang="en">
+                    <!-- Professional Profile Section -->
+                    <section class="mb-10">
+                        <h2 class="section-title">Professional Profile</h2>
+                        <p class="text-lg leading-relaxed rounded-lg p-4 section-profile border">
+                            I'm a Computer Systems Engineer and Project Manager who loves connecting technology with business. I specialize in digital transformation and launching successful digital products, even generating over 40 million pesos annually. I'm all about data-driven strategies, teamwork, and driving innovation to boost growth. I enjoy tackling new professional opportunities.
+                        </p>
+                    </section>
 
-                <!-- Education Section -->
-                <section class="mb-10 section-education">
-                    <h2 class="section-title">Education</h2>
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold">Bachelor of Engineering, Computer Systems Engineering</h3>
-                            <p class="text-gray-700">Instituto Universitario de México (IUDM)</p>
-                            <p class="text-gray-600 text-sm">2015-2018</p>
+                    <!-- Education Section -->
+                    <section class="mb-10 section-education">
+                        <h2 class="section-title">Education</h2>
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold">Bachelor of Engineering, Computer Systems Engineering</h3>
+                                <p class="text-gray-700">Instituto Universitario de México (IUDM)</p>
+                                <p class="text-gray-600 text-sm">2015-2018</p>
+                            </div>
+                            <div class="p-4 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold">High School Diploma</h3>
+                                <p class="text-gray-700">Colegio de bachilleres de Chiapas plantel 190</p>
+                                <p class="text-gray-600 text-sm">2015-2018</p>
+                            </div>
                         </div>
-                        <div class="p-4 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold">High School Diploma</h3>
-                            <p class="text-gray-700">Colegio de bachilleres de Chiapas plantel 190</p>
-                            <p class="text-gray-600 text-sm">2015-2018</p>
+                    </section>
+
+                    <!-- Experience Section -->
+                    <section class="mb-10 section-experience">
+                        <h2 class="section-title">Experience</h2>
+                        <div class="space-y-6">
+
+                            <!-- Konfront - Digital Deployment Team -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Project Manager - Digital Deployment Team</span>
+                                </h3>
+                                <p class="text-gray-700">Konfront</p>
+                                <p class="text-gray-600 text-sm">August 2024 - April 2025 (9 months)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Led the deployment and adoption process of developed digital tools, ensuring alignment with client needs.</li>
+                                    <li class="experience-item">Managed the digital deployment process.</li>
+                                    <li class="experience-item">Gathered insights and understood client requirements thoroughly (Understanding Client Needs - Etapa de Obtener).</li>
+                                    <li class="experience-item">Prepared end-users for adopting the digital solution (Preparing for Adoption - Etapa de Preparar).</li>
+                                    <li class="experience-item">Created and implemented digital solutions, tracking real-time progress (Developing Implementation - Etapa de Desarrollar Implementación).</li>
+                                    <li class="experience-item">Continuously improved based on feedback and integrated changes (Iterating and Integrating - Etapa de Integración).</li>
+                                    <li class="experience-item">Ensured usability, analyzed progress, and adjusted as needed.</li>
+                                    <li class="experience-item">Fostered the adoption of new technologies among end-users, improving customer experience.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Konfront - Digital Transformation Analyst -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Project Manager - Digital Transformation Analyst</span>
+                                </h3>
+                                <p class="text-gray-700">Konfront</p>
+                                <p class="text-gray-600 text-sm">April 2023 - April 2025 (2 years 1 month)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Led the development of minimum viable products (MVP) from conception to launch, including platforms in sectors such as group travel, health, fintech, brokers, and vehicle multi-quotes.</li>
+                                    <li class="experience-item">Developed platforms that generated over 40 million pesos annually, demonstrating high ROI and client satisfaction.</li>
+                                    <li class="experience-item">Managed high-impact projects and developed close relationships with clients.</li>
+                                    <li class="experience-item">Led multidisciplinary teams (Development, Interface Architecture) to meet projected timelines and client expectations in digital product development.</li>
+                                    <li class="experience-item">Created digital solutions for various industries such as health tech, insurance, credit, travel, and finance.</li>
+                                    <li class="experience-item">Utilized agile methodologies (SCRUM) to optimize team efficiency and meet established deadlines.</li>
+                                    <li class="experience-item">Developed strong client relationships, ensuring project satisfaction and success through a user-centric approach.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Agencia digital Ordoñez - Jr Graphic Designer -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Jr Graphic Designer (Freelance)</span>
+                                </h3>
+                                <p class="text-gray-700">Agencia digital Ordoñez</p>
+                                <p class="text-gray-600 text-sm">January 2021 - December 2021 (1 year)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Created and designed advertising campaigns for various clients such as retail, supermarkets, agencies, and SMEs.</li>
+                                    <li class="experience-item">Designed logos.</li>
+                                    <li class="experience-item">Designed sales and marketing strategies from scratch for emerging companies.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Publicidad Tapachula IWOKA - Marketing and Sales Specialist -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Marketing and Sales Specialist</span>
+                                </h3>
+                                <p class="text-gray-700">Publicidad Tapachula IWOKA</p>
+                                <p class="text-gray-600 text-sm">March 2016 - March 2020 (4 years 1 month)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Developed and coordinated comprehensive digital marketing strategies, increasing client acquisition.</li>
+                                    <li class="experience-item">Placed advertising services to a diverse client portfolio.</li>
+                                    <li class="experience-item">Supervised effective on-site advertising campaigns, including flyering, loudspeaker announcements, and activations.</li>
+                                    <li class="experience-item">Conducted competitor analysis based on data and random surveys with a sample of end-users.</li>
+                                    <li class="experience-item">Grew client portfolio and closed new business deals.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Escuela primaria "Emilio Rabasa Estebanell" - Head of IT Services -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Head of IT Services</span>
+                                </h3>
+                                <p class="text-gray-700">Escuela primaria "Emilio Rabasa Estebanell"</p>
+                                <p class="text-gray-600 text-sm">September 2017 - March 2018 (7 months)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Led the IT team to enhance the school's technological infrastructure.</li>
+                                    <li class="experience-item">Developed and implemented technology solutions to optimize educational processes.</li>
+                                    <li class="experience-item">Ensured the security and efficiency of IT services for staff and students.</li>
+                                    <li class="experience-item">Provided technical support and managed networks for two computer labs.</li>
+                                    <li class="experience-item">Developed a web-based management system for tracking student practice sessions.</li>
+                                    <li class="experience-item">Managed networks (Intranet).</li>
+                                    <li class="experience-item">Taught Computer Science I & II.</li>
+                                    <li class="experience-item">Prepared bi-monthly inventory reports of activities within the computer lab and its inventory.</li>
+                                </ul>
+                            </div>
+
+                            <!-- SOLUCION INFORMATICA EXPRES TAPACHULA - Technical Support (Freelance) -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Technical Support (Freelance)</span>
+                                </h3>
+                                <p class="text-gray-700">SOLUCION INFORMATICA EXPRES TAPACHULA</p>
+                                <p class="text-gray-600 text-sm">January 2015 - December 2019 (5 years)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Provided technical assistance and support for incoming queries and issues related to computer systems, software, and hardware.</li>
+                                    <li class="experience-item">Planned, executed, and oversaw IT projects, ensuring they are completed on time, within scope, and within budget (IT Project Management).</li>
+                                    <li class="experience-item">Designed and developed web applications, ensuring they are user-friendly, efficient, and meet client requirements (Web Application Design and Development).</li>
+                                    <li class="experience-item">Created and maintained websites, focusing on both aesthetic design and functional performance (Website Design and Development).</li>
+                                    <li class="experience-item">Implemented and managed Agile methodologies, particularly SCRUM, to improve project efficiency and team collaboration (Agile Methodologies).</li>
+                                </ul>
+                            </div>
+
                         </div>
-                    </div>
-                </section>
+                    </section>
 
-                <!-- Experience Section -->
-                <section class="mb-10 section-experience">
-                    <h2 class="section-title">Experience</h2>
-                    <div class="space-y-6">
-
-                        <!-- Konfront - Digital Deployment Team -->
-                        <div class="p-5 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold experience-card-title">
-                                <span>Project Manager - Digital Deployment Team</span>
-                            </h3>
-                            <p class="text-gray-700">Konfront</p>
-                            <p class="text-gray-600 text-sm">August 2024 - April 2025 (9 months)</p>
-                            <ul class="list-none mt-3 space-y-2">
-                                <li class="experience-item">Led the deployment and adoption process of developed digital tools, ensuring alignment with client needs.</li>
-                                <li class="experience-item">Managed the digital deployment process.</li>
-                                <li class="experience-item">Gathered insights and understood client requirements thoroughly (Understanding Client Needs - Etapa de Obtener).</li>
-                                <li class="experience-item">Prepared end-users for adopting the digital solution (Preparing for Adoption - Etapa de Preparar).</li>
-                                <li class="experience-item">Created and implemented digital solutions, tracking real-time progress (Developing Implementation - Etapa de Desarrollar Implementación).</li>
-                                <li class="experience-item">Continuously improved based on feedback and integrated changes (Iterating and Integrating - Etapa de Integración).</li>
-                                <li class="experience-item">Ensured usability, analyzed progress, and adjusted as needed.</li>
-                                <li class="experience-item">Fostered the adoption of new technologies among end-users, improving customer experience.</li>
-                            </ul>
+                    <!-- Skills & Certifications Section -->
+                    <section class="mb-10 section-skills-certs">
+                        <h2 class="section-title">Skills & Certifications</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">Project Management Focused Skills</h3>
+                                <ul class="list-none space-y-2">
+                                    <li class="experience-item">Project Coordination</li>
+                                    <li class="experience-item">Project Management</li>
+                                    <li class="experience-item">Digital Transformation</li>
+                                    <li class="experience-item">Product Owner</li>
+                                    <li class="experience-item">Agile Methodologies (SCRUM)</li>
+                                    <li class="experience-item">LEAN Method</li>
+                                    <li class="experience-item">Business Analysis</li>
+                                    <li class="experience-item">Technological Product Development</li>
+                                    <li class="experience-item">Strategic Planning</li>
+                                    <li class="experience-item">Team Leadership</li>
+                                    <li class="experience-item">Stakeholder Management</li>
+                                    <li class="experience-item">Risk Management</li>
+                                    <li class="experience-item">Budget Management</li>
+                                    <li class="experience-item">Quality Assurance</li>
+                                    <li class="experience-item">Client Relationship Management</li>
+                                    <li class="experience-item">Data-Driven Strategies</li>
+                                    <li class="experience-item">Innovation Management</li>
+                                    <li class="experience-item">Process Improvement</li>
+                                    <li class="experience-item">Communication</li>
+                                    <li class="experience-item">Time Management</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">Certifications</h3>
+                                <ul class="list-none space-y-2">
+                                    <li class="certification-item">Natural Language Processing and Computer Vision (IBM; May 2025)</li>
+                                    <li class="certification-item">ChatGPT (Universidad Tecmilenio; February 2025)</li>
+                                    <li class="certification-item">Digital Accounting and Finance (Universidad Tecmilenio; February 2025)</li>
+                                    <li class="certification-item">Productivity Tools in the Digital World: Word (Universidad Tecmilenio; February 2025)</li>
+                                    <li class="certification-item">Automated Machine Learning and Deep Learning (IBM; May 2025)</li>
+                                    <li class="certification-item">Introduction to Artificial Intelligence (IBM; May 2025)</li>
+                                    <li class="certification-item">Object-Oriented Programming (Universidad Tecmilenio; February 2025)</li>
+                                    <li class="certification-item">Computer Networks (Universidad Tecmilenio; February 2025)</li>
+                                    <li class="certification-item">Big Data (Universidad Tecmilenio; January 2025)</li>
+                                    <li class="certification-item">Cybersecurity (Universidad Tecmilenio; January 2025)</li>
+                                    <li class="certification-item">Basic Aspects of Azure AI (IA-900) (Microsoft; September 2024)</li>
+                                    <li class="certification-item">Artificial Intelligence (Universidad Tecmilenio; September 2024)</li>
+                                    <li class="certification-item">"El MTTR: The key to optimizing your repair times and increasing productivity" (Fracttal; May 2023)</li>
+                                    <li class="certification-item">Scrum Foundation Professional Certificate - SFPC™ (CertiProf; July 2022)</li>
+                                    <li class="certification-item">Diploma in Financial Education (CONDUSEF; June 2022)</li>
+                                    <li class="certification-item">From Engagement to Sales (Académica; February 2021)</li>
+                                    <li class="certification-item">Introduction to Cybersecurity (Cisco Networking Academy; November 2020)</li>
+                                    <li class="certification-item">Component-Based Web Design (Consejo Zacatecano de Ciencia, Tecnología e Innovación; May 2020)</li>
+                                    <li class="certification-item">Preventive-Corrective Maintenance of Laptops (Secretaría del Trabajo y Previsión Social; November 2018)</li>
+                                    <li class="certification-item">Cell Phone and Tablet Repair Technician (Fundación Carlos Slim; October 2018)</li>
+                                    <li class="certification-item">E-commerce (Google Actívate)</li>
+                                    <li class="certification-item">Digital Competencies for Professionals (Google Actívate)</li>
+                                    <li class="certification-item">Introduction to Web Development Course: HTML and CSS (1/2) (Google Actívate)</li>
+                                    <li class="certification-item">Personal Productivity in the Digital Era Course (Google Actívate)</li>
+                                    <li class="certification-item">Incident Management and Response (ESET Latinoamérica)</li>
+                                    <li class="certification-item">Introduction to Web Development I (Google Actívate)</li>
+                                </ul>
+                            </div>
                         </div>
+                    </section>
 
-                        <!-- Konfront - Digital Transformation Analyst -->
-                        <div class="p-5 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold experience-card-title">
-                                <span>Project Manager - Digital Transformation Analyst</span>
-                            </h3>
-                            <p class="text-gray-700">Konfront</p>
-                            <p class="text-gray-600 text-sm">April 2023 - April 2025 (2 years 1 month)</p>
-                            <ul class="list-none mt-3 space-y-2">
-                                <li class="experience-item">Led the development of minimum viable products (MVP) from conception to launch, including platforms in sectors such as group travel, health, fintech, brokers, and vehicle multi-quotes.</li>
-                                <li class="experience-item">Developed platforms that generated over 40 million pesos annually, demonstrating high ROI and client satisfaction.</li>
-                                <li class="experience-item">Managed high-impact projects and developed close relationships with clients.</li>
-                                <li class="experience-item">Led multidisciplinary teams (Development, Interface Architecture) to meet projected timelines and client expectations in digital product development.</li>
-                                <li class="experience-item">Created digital solutions for various industries such as health tech, insurance, credit, travel, and finance.</li>
-                                <li class="experience-item">Utilized agile methodologies (SCRUM) to optimize team efficiency and meet established deadlines.</li>
-                                <li class="experience-item">Developed strong client relationships, ensuring project satisfaction and success through a user-centric approach.</li>
-                            </ul>
+                    <!-- Footer Section moved inside the main content card -->
+                    <footer class="footer">
+                        <p>&copy; 2024 Juan Luis Ordoñez Perez. All rights reserved.</p>
+                    </footer>
+                </div>
+
+                <!-- Spanish Content -->
+                <div class="lang-content" data-lang="es">
+                    <!-- Professional Profile Section -->
+                    <section class="mb-10">
+                        <h2 class="section-title">Perfil Profesional</h2>
+                        <p class="text-lg leading-relaxed rounded-lg p-4 section-profile border">
+                            Soy un Ingeniero en Sistemas Computacionales y Gerente de Proyectos que ama conectar la tecnología con los negocios. Me especializo en transformación digital y en el lanzamiento exitoso de productos digitales, generando incluso más de 40 millones de pesos anualmente. Me enfoco en estrategias basadas en datos, trabajo en equipo e impulsar la innovación para potenciar el crecimiento. Disfruto abordando nuevas oportunidades profesionales.
+                        </p>
+                    </section>
+
+                    <!-- Education Section -->
+                    <section class="mb-10 section-education">
+                        <h2 class="section-title">Educación</h2>
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold">Ingeniería en Sistemas Computacionales</h3>
+                                <p class="text-gray-700">Instituto Universitario de México (IUDM)</p>
+                                <p class="text-gray-600 text-sm">2015-2018</p>
+                            </div>
+                            <div class="p-4 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold">Bachillerato</h3>
+                                <p class="text-gray-700">Colegio de bachilleres de Chiapas plantel 190</p>
+                                <p class="text-gray-600 text-sm">2015-2018</p>
+                            </div>
                         </div>
+                    </section>
 
-                        <!-- Agencia digital Ordoñez - Jr Graphic Designer -->
-                        <div class="p-5 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold experience-card-title">
-                                <span>Jr Graphic Designer (Freelance)</span>
-                            </h3>
-                            <p class="text-gray-700">Agencia digital Ordoñez</p>
-                            <p class="text-gray-600 text-sm">January 2021 - December 2021 (1 year)</p>
-                            <ul class="list-none mt-3 space-y-2">
-                                <li class="experience-item">Created and designed advertising campaigns for various clients such as retail, supermarkets, agencies, and SMEs.</li>
-                                <li class="experience-item">Designed logos.</li>
-                                <li class="experience-item">Designed sales and marketing strategies from scratch for emerging companies.</li>
-                            </ul>
+                    <!-- Experience Section -->
+                    <section class="mb-10 section-experience">
+                        <h2 class="section-title">Experiencia</h2>
+                        <div class="space-y-6">
+
+                            <!-- Konfront - Digital Deployment Team -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Project Manager - Digital Deployment Team</span>
+                                </h3>
+                                <p class="text-gray-700">Konfront</p>
+                                <p class="text-gray-600 text-sm">Agosto 2024 - Abril 2025 (9 meses)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Lideré el proceso de despliegue y adopción de herramientas digitales desarrolladas, asegurando la alineación con las necesidades del cliente.</li>
+                                    <li class="experience-item">Gestioné el proceso de despliegue digital.</li>
+                                    <li class="experience-item">Recopilé información y comprendí a fondo los requisitos del cliente (Understanding Client Needs - Etapa de Obtener).</li>
+                                    <li class="experience-item">Preparé a los usuarios finales para la adopción de la solución digital (Preparing for Adoption - Etapa de Preparar).</li>
+                                    <li class="experience-item">Creé e implementé soluciones digitales, supervisando el progreso en tiempo real (Developing Implementation - Etapa de Desarrollar Implementación).</li>
+                                    <li class="experience-item">Mejoré continuamente basándome en la retroalimentación e integré los cambios (Iterating and Integrating - Etapa de Integración).</li>
+                                    <li class="experience-item">Aseguré la usabilidad, analicé el progreso y realicé ajustes según fue necesario.</li>
+                                    <li class="experience-item">Fomenté la adopción de nuevas tecnologías entre los usuarios finales, mejorando la experiencia del cliente.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Konfront - Digital Transformation Analyst -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Project Manager - Digital Transformation Analyst</span>
+                                </h3>
+                                <p class="text-gray-700">Konfront</p>
+                                <p class="text-gray-600 text-sm">Abril 2023 - Abril 2025 (2 años 1 mes)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Lideré el desarrollo de productos mínimos viables (MVP) desde la concepción hasta el lanzamiento, incluyendo plataformas en sectores como viajes en grupo, salud, fintech, brokers y multicotizadores de vehículos.</li>
+                                    <li class="experience-item">Desarrollé plataformas que generaron ingresos superiores a 40 millones de pesos anuales, demostrando un alto retorno de inversión y satisfacción del cliente.</li>
+                                    <li class="experience-item">Gestioné proyectos de alto impacto y desarrollé relaciones cercanas con los clientes.</li>
+                                    <li class="experience-item">Lideré equipos multidisciplinarios (Desarrollo, Arquitectura de Interfaz) para cumplir con los plazos proyectados y las expectativas del cliente en el desarrollo de productos digitales.</li>
+                                    <li class="experience-item">Creé soluciones digitales para diversas industrias como tecnología de la salud, seguros, crédito, viajes y finanzas.</li>
+                                    <li class="experience-item">Utilicé metodologías ágiles (SCRUM) para optimizar la eficiencia del equipo y cumplir con los plazos establecidos.</li>
+                                    <li class="experience-item">Desarrollé relaciones sólidas con los clientes, asegurando la satisfacción y el éxito de los proyectos mediante un enfoque centrado en el usuario.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Agencia digital Ordoñez - Jr Graphic Designer -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Diseñador Gráfico Jr (Freelance)</span>
+                                </h3>
+                                <p class="text-gray-700">Agencia digital Ordoñez</p>
+                                <p class="text-gray-600 text-sm">Enero 2021 - Diciembre 2021 (1 año)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Creé y diseñé campañas publicitarias para diversos clientes como minoristas, supermercados, agencias y PYMES.</li>
+                                    <li class="experience-item">Diseñé logotipos.</li>
+                                    <li class="experience-item">Diseñé estrategias de ventas y marketing desde cero para empresas emergentes.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Publicidad Tapachula IWOKA - Marketing and Sales Specialist -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Especialista en Marketing y Ventas</span>
+                                </h3>
+                                <p class="text-gray-700">Publicidad Tapachula IWOKA</p>
+                                <p class="text-gray-600 text-sm">Marzo 2016 - Marzo 2020 (4 años 1 mes)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Desarrollé y coordiné estrategias integrales de marketing digital, aumentando la captación de clientes.</li>
+                                    <li class="experience-item">Colocación de servicios de publicidad a una diversa cartera de clientes.</li>
+                                    <li class="experience-item">Supervisé campañas publicitarias en sitio, optimizando la efectividad de las activaciones y promociones, incluyendo el reparto de volantes y anuncios por altavoz.</li>
+                                    <li class="experience-item">Realicé análisis de la competencia basado en datos y encuestas aleatorias con una muestra de usuarios finales.</li>
+                                    <li class="experience-item">Aumenté la cartera de clientes y cerré nuevos negocios.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Escuela primaria "Emilio Rabasa Estebanell" - Head of IT Services -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Jefe de Servicios de TI</span>
+                                </h3>
+                                <p class="text-gray-700">Escuela primaria "Emilio Rabasa Estebanell"</p>
+                                <p class="text-gray-600 text-sm">Septiembre 2017 - Marzo 2018 (7 meses)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Lideré el equipo de TI para mejorar la infraestructura tecnológica de la escuela.</li>
+                                    <li class="experience-item">Desarrollé e implementé soluciones tecnológicas para optimizar los procesos educativos.</li>
+                                    <li class="experience-item">Garanticé la seguridad y eficiencia de los servicios de TI para el personal y estudiantes.</li>
+                                    <li class="experience-item">Proporcioné soporte técnico y gestioné redes para dos laboratorios de computación.</li>
+                                    <li class="experience-item">Desarrollé un sistema de gestión web para el seguimiento de sesiones prácticas de estudiantes.</li>
+                                    <li class="experience-item">Gestioné redes (Intranet).</li>
+                                    <li class="experience-item">Impartí clases de Informática I y II.</li>
+                                    <li class="experience-item">Preparé informes bimestrales de actividades dentro del laboratorio de cómputo e inventario del mismo.</li>
+                                </ul>
+                            </div>
+
+                            <!-- SOLUCION INFORMATICA EXPRES TAPACHULA - Technical Support (Freelance) -->
+                            <div class="p-5 rounded-lg shadow-sm border card">
+                                <h3 class="text-lg font-semibold experience-card-title">
+                                    <span>Soporte Técnico (Freelance)</span>
+                                </h3>
+                                <p class="text-gray-700">SOLUCION INFORMATICA EXPRES TAPACHULA</p>
+                                <p class="text-gray-600 text-sm">Enero 2015 - Diciembre 2019 (5 años)</p>
+                                <ul class="list-none mt-3 space-y-2">
+                                    <li class="experience-item">Proporcioné asistencia y soporte técnico para consultas y problemas relacionados con sistemas informáticos, software y hardware.</li>
+                                    <li class="experience-item">Planifiqué, ejecuté y supervisé proyectos de TI, asegurando que se completaran a tiempo, dentro del alcance y el presupuesto (Gestión de Proyectos de TI).</li>
+                                    <li class="experience-item">Diseñé y desarrollé aplicaciones web, asegurando que fueran fáciles de usar, eficientes y que cumplieran con los requisitos del cliente (Diseño y Desarrollo de Aplicaciones Web).</li>
+                                    <li class="experience-item">Creé y mantuve sitios web, centrándome tanto en el diseño estético como en el rendimiento funcional (Diseño y Desarrollo de Sitios Web).</li>
+                                    <li class="experience-item">Implementé y gestioné metodologías ágiles, particularmente SCRUM, para mejorar la eficiencia del proyecto y la colaboración del equipo (Metodologías Ágiles).</li>
+                                </ul>
+                            </div>
+
                         </div>
+                    </section>
 
-                        <!-- Publicidad Tapachula IWOKA - Marketing and Sales Specialist -->
-                        <div class="p-5 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold experience-card-title">
-                                <span>Marketing and Sales Specialist</span>
-                            </h3>
-                            <p class="text-gray-700">Publicidad Tapachula IWOKA</p>
-                            <p class="text-gray-600 text-sm">March 2016 - March 2020 (4 years 1 month)</p>
-                            <ul class="list-none mt-3 space-y-2">
-                                <li class="experience-item">Developed and coordinated comprehensive digital marketing strategies, increasing client acquisition.</li>
-                                <li class="experience-item">Placed advertising services to a diverse client portfolio.</li>
-                                <li class="experience-item">Supervised effective on-site advertising campaigns, including flyering, loudspeaker announcements, and activations.</li>
-                                <li class="experience-item">Conducted competitor analysis based on data and random surveys with a sample of end-users.</li>
-                                <li class="experience-item">Grew client portfolio and closed new business deals.</li>
-                            </ul>
+                    <!-- Skills & Certifications Section -->
+                    <section class="mb-10 section-skills-certs">
+                        <h2 class="section-title">Habilidades y Certificaciones</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">Habilidades Enfocadas en Gestión de Proyectos</h3>
+                                <ul class="list-none space-y-2">
+                                    <li class="experience-item">Coordinación de Proyectos</li>
+                                    <li class="experience-item">Gestión de Proyectos</li>
+                                    <li class="experience-item">Transformación Digital</li>
+                                    <li class="experience-item">Product Owner</li>
+                                    <li class="experience-item">Metodologías Ágiles (SCRUM)</li>
+                                    <li class="experience-item">Método LEAN</li>
+                                    <li class="experience-item">Análisis de Negocio</li>
+                                    <li class="experience-item">Desarrollo de Productos Tecnológicos</li>
+                                    <li class="experience-item">Planificación Estratégica</li>
+                                    <li class="experience-item">Liderazgo de Equipos</li>
+                                    <li class="experience-item">Gestión de Interesados</li>
+                                    <li class="experience-item">Gestión de Riesgos</li>
+                                    <li class="experience-item">Gestión Presupuestaria</li>
+                                    <li class="experience-item">Aseguramiento de la Calidad</li>
+                                    <li class="experience-item">Gestión de Relaciones con Clientes</li>
+                                    <li class="experience-item">Estrategias Basadas en Datos</li>
+                                    <li class="experience-item">Gestión de la Innovación</li>
+                                    <li class="experience-item">Mejora de Procesos</li>
+                                    <li class="experience-item">Comunicación</li>
+                                    <li class="experience-item">Gestión del Tiempo</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">Certificaciones</h3>
+                                <ul class="list-none space-y-2">
+                                    <li class="certification-item">Procesamiento del Lenguaje Natural y Visión por Computadora (IBM; Expedición: mayo 2025)</li>
+                                    <li class="certification-item">ChatGPT (Universidad Tecmilenio; Expedición: febrero 2025)</li>
+                                    <li class="certification-item">Contabilidad y Finanzas Digitales (Universidad Tecmilenio; Expedición: febrero 2025)</li>
+                                    <li class="certification-item">Herramientas de Productividad en el Mundo Digital: Word (Universidad Tecmilenio; Expedición: febrero 2025)</li>
+                                    <li class="certification-item">Aprendizaje Automático y Aprendizaje Profundo (IBM; Expedición: mayo 2025)</li>
+                                    <li class="certification-item">Introducción a la Inteligencia Artificial (IBM; Expedición: mayo 2025)</li>
+                                    <li class="certification-item">Programación Orientada a Objetos (Universidad Tecmilenio; Expedición: febrero 2025)</li>
+                                    <li class="certification-item">Redes Computacionales (Universidad Tecmilenio; Expedición: febrero 2025)</li>
+                                    <li class="certification-item">Big Data (Universidad Tecmilenio; Expedición: enero 2025)</li>
+                                    <li class="certification-item">Ciberseguridad (Universidad Tecmilenio; Expedición: enero 2025)</li>
+                                    <li class="certification-item">Aspectos Básicos de Azure AI (IA-900) (Microsoft; Expedición: septiembre 2024)</li>
+                                    <li class="certification-item">Inteligencia Artificial (Universidad Tecmilenio; Expedición: septiembre 2024)</li>
+                                    <li class="certification-item">"El MTTR: La clave para optimizar tus tiempos de reparación y aumentar la productividad" (Fracttal; Expedición: mayo 2023)</li>
+                                    <li class="certification-item">Scrum Foundation Professional Certificate - SFPC™ (CertiProf; Expedición: julio 2022)</li>
+                                    <li class="certification-item">Diplomado en Educación Financiera (CONDUSEF; Expedición: junio 2022)</li>
+                                    <li class="certification-item">Del Engagement a la Venta (Académica; Expedición: febrero 2021)</li>
+                                    <li class="certification-item">Introducción a la Ciberseguridad (Cisco Networking Academy; Expedición: noviembre 2020)</li>
+                                    <li class="certification-item">Diseño Web Basado en Componentes (Consejo Zacatecano de Ciencia, Tecnología e Innovación; Expedición: mayo 2020)</li>
+                                    <li class="certification-item">Mantenimiento Preventivo-Correctivo de Laptops (Secretaría del Trabajo y Previsión Social; Expedición: noviembre 2018)</li>
+                                    <li class="certification-item">Reparador de Celulares y Tabletas (Fundación Carlos Slim; Expedición: octubre 2018)</li>
+                                    <li class="certification-item">Comercio Electrónico (Google Actívate)</li>
+                                    <li class="certification-item">Competencias Digitales para Profesionales (Google Actívate)</li>
+                                    <li class="certification-item">Curso de Introducción al Desarrollo Web: HTML y CSS (1/2) (Google Actívate)</li>
+                                    <li class="certification-item">Curso de Productividad Personal en la Era Digital (Google Actívate)</li>
+                                    <li class="certification-item">Gestión y Respuesta a Incidentes (ESET Latinoamérica)</li>
+                                    <li class="certification-item">Introducción al Desarrollo Web I (Google Actívate)</li>
+                                </ul>
+                            </div>
                         </div>
+                    </section>
 
-                        <!-- Escuela primaria "Emilio Rabasa Estebanell" - Head of IT Services -->
-                        <div class="p-5 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold experience-card-title">
-                                <span>Head of IT Services</span>
-                            </h3>
-                            <p class="text-gray-700">Escuela primaria "Emilio Rabasa Estebanell"</p>
-                            <p class="text-gray-600 text-sm">September 2017 - March 2018 (7 months)</p>
-                            <ul class="list-none mt-3 space-y-2">
-                                <li class="experience-item">Led the IT team to enhance the school's technological infrastructure.</li>
-                                <li class="experience-item">Developed and implemented technology solutions to optimize educational processes.</li>
-                                <li class="experience-item">Ensured the security and efficiency of IT services for staff and students.</li>
-                                <li class="experience-item">Provided technical support and managed networks for two computer labs.</li>
-                                <li class="experience-item">Developed a web-based management system for tracking student practice sessions.</li>
-                                <li class="experience-item">Managed networks (Intranet).</li>
-                                <li class="experience-item">Taught Computer Science I & II.</li>
-                                <li class="experience-item">Prepared bi-monthly inventory reports of activities within the computer lab and its inventory.</li>
-                            </ul>
-                        </div>
-
-                        <!-- SOLUCION INFORMATICA EXPRES TAPACHULA - Technical Support (Freelance) -->
-                        <div class="p-5 rounded-lg shadow-sm border card">
-                            <h3 class="text-lg font-semibold experience-card-title">
-                                <span>Technical Support (Freelance)</span>
-                            </h3>
-                            <p class="text-gray-700">SOLUCION INFORMATICA EXPRES TAPACHULA</p>
-                            <p class="text-gray-600 text-sm">January 2015 - December 2019 (5 years)</p>
-                            <ul class="list-none mt-3 space-y-2">
-                                <li class="experience-item">Provided technical assistance and support for incoming queries and issues related to computer systems, software, and hardware.</li>
-                                <li class="experience-item">Planned, executed, and oversaw IT projects, ensuring they are completed on time, within scope, and within budget (IT Project Management).</li>
-                                <li class="experience-item">Designed and developed web applications, ensuring they are user-friendly, efficient, and meet client requirements (Web Application Design and Development).</li>
-                                <li class="experience-item">Created and maintained websites, focusing on both aesthetic design and functional performance (Website Design and Development).</li>
-                                <li class="experience-item">Implemented and managed Agile methodologies, particularly SCRUM, to improve project efficiency and team collaboration (Agile Methodologies).</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </section>
-
-                <!-- Skills & Certifications Section -->
-                <section class="mb-10 section-skills-certs">
-                    <h2 class="section-title">Skills & Certifications</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                            <h3 class="text-xl font-semibold mb-4">Project Management Focused Skills</h3>
-                            <ul class="list-none space-y-2">
-                                <li class="experience-item">Project Coordination</li>
-                                <li class="experience-item">Project Management</li>
-                                <li class="experience-item">Digital Transformation</li>
-                                <li class="experience-item">Product Owner</li>
-                                <li class="experience-item">Agile Methodologies (SCRUM)</li>
-                                <li class="experience-item">LEAN Method</li>
-                                <li class="experience-item">Business Analysis</li>
-                                <li class="experience-item">Technological Product Development</li>
-                                <li class="experience-item">Strategic Planning</li>
-                                <li class="experience-item">Team Leadership</li>
-                                <li class="experience-item">Stakeholder Management</li>
-                                <li class="experience-item">Risk Management</li>
-                                <li class="experience-item">Budget Management</li>
-                                <li class="experience-item">Quality Assurance</li>
-                                <li class="experience-item">Client Relationship Management</li>
-                                <li class="experience-item">Data-Driven Strategies</li>
-                                <li class="experience-item">Innovation Management</li>
-                                <li class="experience-item">Process Improvement</li>
-                                <li class="experience-item">Communication</li>
-                                <li class="experience-item">Time Management</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-semibold mb-4">Certifications</h3>
-                            <ul class="list-none space-y-2">
-                                <li class="certification-item">Natural Language Processing and Computer Vision (IBM; May 2025)</li>
-                                <li class="certification-item">ChatGPT (Universidad Tecmilenio; February 2025)</li>
-                                <li class="certification-item">Digital Accounting and Finance (Universidad Tecmilenio; February 2025)</li>
-                                <li class="certification-item">Productivity Tools in the Digital World: Word (Universidad Tecmilenio; February 2025)</li>
-                                <li class="certification-item">Automated Machine Learning and Deep Learning (IBM; May 2025)</li>
-                                <li class="certification-item">Introduction to Artificial Intelligence (IBM; May 2025)</li>
-                                <li class="certification-item">Object-Oriented Programming (Universidad Tecmilenio; February 2025)</li>
-                                <li class="certification-item">Computer Networks (Universidad Tecmilenio; February 2025)</li>
-                                <li class="certification-item">Big Data (Universidad Tecmilenio; January 2025)</li>
-                                <li class="certification-item">Cybersecurity (Universidad Tecmilenio; January 2025)</li>
-                                <li class="certification-item">Basic Aspects of Azure AI (IA-900) (Microsoft; September 2024)</li>
-                                <li class="certification-item">Artificial Intelligence (Universidad Tecmilenio; September 2024)</li>
-                                <li class="certification-item">"El MTTR: The key to optimizing your repair times and increasing productivity" (Fracttal; May 2023)</li>
-                                <li class="certification-item">Scrum Foundation Professional Certificate - SFPC™ (CertiProf; July 2022)</li>
-                                <li class="certification-item">Diploma in Financial Education (CONDUSEF; June 2022)</li>
-                                <li class="certification-item">From Engagement to Sales (Académica; February 2021)</li>
-                                <li class="certification-item">Introduction to Cybersecurity (Cisco Networking Academy; November 2020)</li>
-                                <li class="certification-item">Component-Based Web Design (Consejo Zacatecano de Ciencia, Tecnología e Innovación; May 2020)</li>
-                                <li class="certification-item">Preventive-Corrective Maintenance of Laptops (Secretaría del Trabajo y Previsión Social; November 2018)</li>
-                                <li class="certification-item">Cell Phone and Tablet Repair Technician (Fundación Carlos Slim; October 2018)</li>
-                                <li class="certification-item">E-commerce (Google Actívate)</li>
-                                <li class="certification-item">Digital Competencies for Professionals (Google Actívate)</li>
-                                <li class="certification-item">Introduction to Web Development Course: HTML and CSS (1/2) (Google Actívate)</li>
-                                <li class="certification-item">Personal Productivity in the Digital Era Course (Google Actívate)</li>
-                                <li class="certification-item">Incident Management and Response (ESET Latinoamérica)</li>
-                                <li class="certification-item">Introduction to Web Development I (Google Actívate)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Footer Section moved inside the main content card -->
-                <footer class="footer">
-                    <p>&copy; 2024 Juan Luis Ordoñez Perez. Todos los derechos reservados.</p>
-                </footer>
-
+                    <!-- Footer Section moved inside the main content card -->
+                    <footer class="footer">
+                        <p>&copy; 2024 Juan Luis Ordoñez Perez. Todos los derechos reservados.</p>
+                    </footer>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langButtons = document.querySelectorAll('.lang-button');
+            const langContents = document.querySelectorAll('.lang-content');
+
+            // Function to show/hide content based on language
+            function showLanguage(lang) {
+                langContents.forEach(content => {
+                    if (content.dataset.lang === lang) {
+                        content.classList.add('active');
+                    } else {
+                        content.classList.remove('active');
+                    }
+                });
+            }
+
+            // Function to set active button style
+            function setActiveButton(activeButton) {
+                langButtons.forEach(button => {
+                    button.classList.remove('active');
+                });
+                activeButton.classList.add('active');
+            }
+
+            // Event listeners for language buttons
+            langButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetLang = this.dataset.langTarget;
+                    showLanguage(targetLang);
+                    setActiveButton(this);
+                });
+            });
+
+            // Initialize to show English content by default
+            showLanguage('en');
+            // Ensure the English button is active on load
+            document.querySelector('.lang-button[data-lang-target="en"]').classList.add('active');
+        });
+    </script>
 </body>
 </html>
